@@ -1,0 +1,38 @@
+## Omitir pastas de compilação (geradas automaticamente)
+[Bb]in/
+[Oo]bj/
+
+## Omitir pastas do Visual Studio e caches de ferramentas
+.vs/
+.vscode/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+## Resultados de testes
+[Tt]est[Rr]esult*/
+*.coverage
+
+## Arquivos e logs de diagnóstico
+*.log
+*.svclog
+*.tlog
+
+## Cache e pacotes NuGet do ecossistema antigo/novo
+packages/
+!packages/repositories.config
+*.nuget.props
+*.nuget.targets
+
+## Arquivos de dados gerados localmente e caches do compilador Roslyn
+*.ide/
+*.mesh
+*.nimble
+_ReSharper*/
+
+## Arquivos de sistema operacional
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+.DS_Store
