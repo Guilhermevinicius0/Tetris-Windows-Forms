@@ -17,10 +17,10 @@ namespace WindowsFormsApp8.Pieces.Bases
 
         public PieceType Type { get; protected set; }
 
-        public Piece(int x, int y)
+        public Piece()
         {
-            X = x;
-            Y = y;
+            X = 0;
+            Y = 0;
         }
 
         public virtual bool IsOccupied(int x, int y)

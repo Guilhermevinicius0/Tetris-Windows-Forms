@@ -10,7 +10,7 @@ namespace WindowsFormsApp8.Pieces.Shapes
     public class RightZigZag : Piece
     {
         public override int[,] Body { get; protected set; }
-        public RightZigZag(int x, int y) : base(x, y)
+        public RightZigZag()
         {
             Body = new int[,]
             {

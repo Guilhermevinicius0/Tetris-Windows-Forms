@@ -10,7 +10,7 @@ namespace WindowsFormsApp8.Pieces.Shapes
     public class TShape : Piece
     {
         public override int[,] Body { get; protected set; }
-        public TShape(int x, int y) : base(x, y)
+        public TShape()
         {
             Body = new int[,]
             {

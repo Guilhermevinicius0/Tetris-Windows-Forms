@@ -94,13 +94,7 @@ namespace WindowsFormsApp8.Game
             Score = 0;
             ScoreChangedEvent?.Invoke(Score);
 
-            for (int x = 0; x < Board.GetLength(1); x++)
-            {
-                for (int y = 0; y < Board.GetLength(0); y++)
-                {
-                    Board[y, x] = 0;
-                }
-            }
+            Array.Clear(Board, 0, Board.Length);
         }
 
         public void ApplyPieceToBoard()
@@ -386,13 +380,13 @@ namespace WindowsFormsApp8.Game
         {
             var pieces = new List<Piece>()
             {
-                new LeftLShape(0, 0),
-                new LeftZigZag(0, 0),
-                new Line(0, 0),
-                new RightLShape(0, 0),
-                new RightZigZag(0, 0),
-                new Square(0, 0),
-                new TShape(0, 0),
+                new LeftLShape(),
+                new LeftZigZag(),
+                new Line(),
+                new RightLShape(),
+                new RightZigZag(),
+                new Square(),
+                new TShape(),
             };
 
             random = new Random();

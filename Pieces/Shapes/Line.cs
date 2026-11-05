@@ -11,7 +11,7 @@ namespace WindowsFormsApp8.Pieces.Shapes
     {
         public override int[,] Body { get; protected set; }
 
-        public Line(int x, int y) : base(x, y)
+        public Line()
         {
             Body = new int[,]
             {
