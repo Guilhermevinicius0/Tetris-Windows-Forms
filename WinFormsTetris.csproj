@@ -46,14 +46,27 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Form1.cs">
+    <Compile Include="Game\Field.cs" />
+    <Compile Include="Pieces\Shapes\LeftLShape.cs" />
+    <Compile Include="Pieces\Shapes\LeftZigZag.cs" />
+    <Compile Include="Pieces\Shapes\Line.cs" />
+    <Compile Include="Pieces\Bases\Piece.cs" />
+    <Compile Include="Pieces\Bases\PieceType.cs" />
+    <Compile Include="Pieces\Shapes\RightLShape.cs" />
+    <Compile Include="Pieces\Shapes\TShape.cs" />
+    <Compile Include="Pieces\Shapes\RightZigZag.cs" />
+    <Compile Include="Pieces\Shapes\Square.cs" />
+    <Compile Include="View.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="View.Designer.cs">
+      <DependentUpon>View.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="View.resx">
+      <DependentUpon>View.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
