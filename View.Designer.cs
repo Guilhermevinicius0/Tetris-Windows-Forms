@@ -39,7 +39,7 @@ namespace WindowsFormsApp8
             // 
             this.label1.Location = new System.Drawing.Point(12, 9);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(82, 23);
+            this.label1.Size = new System.Drawing.Size(99, 23);
             this.label1.TabIndex = 0;
             this.label1.Text = "High Score:";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -75,6 +75,7 @@ namespace WindowsFormsApp8
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.Silver;
             this.ClientSize = new System.Drawing.Size(497, 537);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.lbl_Score);

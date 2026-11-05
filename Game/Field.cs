@@ -76,7 +76,7 @@ namespace WindowsFormsApp8.Game
             FillPieceBag();
         }
 
-        public void ClearGame() 
+        public void ClearGame()
         {
             if (Score > HighScore)
             {
@@ -88,13 +88,13 @@ namespace WindowsFormsApp8.Game
             NextPiece = null;
 
             PieceBag.Clear();
-            
+
             Score = 0;
             ScoreChangedEvent?.Invoke(Score);
 
             for (int x = 0; x < Board.GetLength(1); x++)
             {
-                for (int y = 0; y < Board.GetLength(0); y++) 
+                for (int y = 0; y < Board.GetLength(0); y++)
                 {
                     Board[y, x] = 0;
                 }
@@ -228,24 +228,15 @@ namespace WindowsFormsApp8.Game
                 return false;
             }
 
-            if (CurrentPiece.X <= 0)
-                return false;
+            bool validMove = false;
 
-            int boardX = CurrentPiece.X - 1;
-
-            for (int y = 0; y < CurrentPiece.Body.GetLength(0); y++)
+            if (ValidatePiecePosition(-1, 0, CurrentPiece.Body))
             {
-                int boardY = y + CurrentPiece.Y;
-
-                if (CurrentPiece.Body[y, 0] == 0)
-                    continue;
-
-                if (Board[boardY, boardX] != 0)
-                    return false;
+                validMove = true;
+                CurrentPiece.X -= 1;
             }
 
-            CurrentPiece.X--;
-            return true;
+            return validMove;
         }
 
         public bool TryMovePieceRight()
@@ -262,24 +253,15 @@ namespace WindowsFormsApp8.Game
                 return false;
             }
 
-            if (CurrentPiece.Right + 1 >= Board.GetLength(1))
-                return false;
+            bool validMove = false;
 
-            int boardX = CurrentPiece.Right + 1;
-
-            for (int y = 0; y < CurrentPiece.Body.GetLength(0); y++)
+            if (ValidatePiecePosition(1, 0, CurrentPiece.Body))
             {
-                int boardY = y + CurrentPiece.Y;
-
-                if (CurrentPiece.Body[y, CurrentPiece.Body.GetLength(1) - 1] == 0)
-                    continue;
-
-                if (Board[boardY, boardX] != 0)
-                    return false;
+                validMove = true;
+                CurrentPiece.X += 1;
             }
 
-            CurrentPiece.X++;
-            return true;
+            return validMove;
         }
 
         public bool TryMovePieceDown()
@@ -296,24 +278,15 @@ namespace WindowsFormsApp8.Game
                 return false;
             }
 
-            if (CurrentPiece.Bottom == Board.GetLength(0) - 1)
-                return false;
+            bool validMove = false;
 
-            int boardY = CurrentPiece.Bottom + 1;
-
-            for (int x = 0; x < CurrentPiece.Body.GetLength(1); x++)
+            if (ValidatePiecePosition(0, 1, CurrentPiece.Body))
             {
-                int boardX = x + CurrentPiece.X;
-
-                if (CurrentPiece.Body[CurrentPiece.Body.GetLength(0) - 1, x] == 0)
-                    continue;
-
-                if (Board[boardY, boardX] != 0)
-                    return false;
+                validMove = true;
+                CurrentPiece.Y += 1;
             }
 
-            CurrentPiece.Y++;
-            return true;
+            return validMove;
         }
 
         public bool TryRotatePiece()
@@ -335,7 +308,7 @@ namespace WindowsFormsApp8.Game
                 xDisplacement = boardRight - matrixRight;
 
             //check if its a valid position
-            if (ValidatePiecePosition(xDisplacement, matrix))
+            if (ValidatePiecePosition(xDisplacement, 0, matrix))
             {
                 CurrentPiece.X += xDisplacement;
                 CurrentPiece.RotatePiece();
@@ -355,7 +328,7 @@ namespace WindowsFormsApp8.Game
 
                 //validate Left
                 if (CurrentPiece.X + (xDisplacement - displacementLeft) >= 0 &&
-                    ValidatePiecePosition(xDisplacement - displacementLeft, matrix))
+                    ValidatePiecePosition(xDisplacement - displacementLeft, 0, matrix))
                 {
                     CurrentPiece.X += xDisplacement - displacementLeft;
                     CurrentPiece.RotatePiece();
@@ -365,7 +338,7 @@ namespace WindowsFormsApp8.Game
 
                 //validate Right
                 if (CurrentPiece.X + matrix.GetLength(1) + xDisplacement + displacementRight <= boardRight &&
-                    ValidatePiecePosition(xDisplacement + displacementRight, matrix))
+                    ValidatePiecePosition(xDisplacement + displacementRight, 0, matrix))
                 {
                     CurrentPiece.X += xDisplacement + displacementRight;
                     CurrentPiece.RotatePiece();
@@ -377,7 +350,7 @@ namespace WindowsFormsApp8.Game
             return false;
         }
 
-        private bool ValidatePiecePosition(int xDisplacement, int[,] matrix)
+        private bool ValidatePiecePosition(int xDisplacement, int yDisplacement, int[,] matrix)
         {
             bool validPosition = true;
 
@@ -389,17 +362,18 @@ namespace WindowsFormsApp8.Game
                         continue;
 
                     int currentX = x + xDisplacement + CurrentPiece.X;
-                    int currentY = y + CurrentPiece.Y;
+                    int currentY = y + yDisplacement + CurrentPiece.Y;
 
-                    if (currentX < Board.GetLength(1) && currentX >= 0 &&
-                        currentY < Board.GetLength(0) && currentY >= 0)
+                    if (currentX < 0 || currentX >= Board.GetLength(1) ||
+                        currentY >= Board.GetLength(0))
+                        return false;
+
+                    if (Board[currentY, currentX] != 0)
                     {
-                        if (Board[currentY, currentX] != 0)
-                        {
-                            validPosition = false;
-                            break;
-                        }
+                        validPosition = false;
+                        break;
                     }
+
                 }
             }
 
@@ -419,7 +393,7 @@ namespace WindowsFormsApp8.Game
             CurrentPiece = PieceBag.Dequeue();
             CurrentPiece.X = (Board.GetLength(1) - CurrentPiece.Body.GetLength(1)) / 2 + CurrentPiece.Body.GetLength(1) / 2;
 
-            if (!ValidatePiecePosition(0, CurrentPiece.Body)) 
+            if (!ValidatePiecePosition(0, 0, CurrentPiece.Body))
             {
                 GameOverEvent?.Invoke();
                 return;
