@@ -96,10 +96,9 @@ namespace WindowsFormsApp8
             RestartGame();
         }
 
-        private void RestartGame() 
+        private void RestartGame()
         {
-            _field.ClearGame();
-            _field.InitializeBag();
+            _field.Restart();
             _timer.Start();
         }
 
@@ -172,27 +171,27 @@ namespace WindowsFormsApp8
 
                     //To use at home so i can see how its going to look in the final render
 
-                    //var currentColor = Color.White;
+                    var currentColor = Color.White;
 
-                    //if (!isOccupiedBoard && isOccupiedPiece)
-                    //    currentColor = Colors.TryGetValue(_field?.CurrentPiece?.Type ?? PieceType.Default, out var color) ? color : Color.White;
-                    //else if (isOccupiedBoard && !isOccupiedPiece)
-                    //    currentColor = Colors.TryGetValue((PieceType)board[y, x], out var color) ? color : Color.White;
+                    if (!isOccupiedBoard && isOccupiedPiece)
+                        currentColor = Colors.TryGetValue(_field?.CurrentPiece?.Type ?? PieceType.Default, out var color) ? color : Color.White;
+                    else if (isOccupiedBoard && !isOccupiedPiece)
+                        currentColor = Colors.TryGetValue((PieceType)board[y, x], out var color) ? color : Color.White;
 
-                    //using (var brush = new SolidBrush(currentColor))
-                    //    g.FillRectangle(brush, currentX, currentY, cellSize, cellSize);
+                    using (var brush = new SolidBrush(currentColor))
+                        g.FillRectangle(brush, currentX, currentY, cellSize, cellSize);
 
                     //To Use at Work so people think is something serious
 
-                    var currentCell = "0";
+                    //var currentCell = "0";
 
-                    if (!isOccupiedBoard && isOccupiedPiece)
-                        currentCell = ((int)(_field.CurrentPiece?.Type ?? PieceType.Default)).ToString();
-                    else if (isOccupiedBoard && !isOccupiedPiece)
-                        currentCell = board[y, x].ToString();
+                    //if (!isOccupiedBoard && isOccupiedPiece)
+                    //    currentCell = ((int)(_field.CurrentPiece?.Type ?? PieceType.Default)).ToString();
+                    //else if (isOccupiedBoard && !isOccupiedPiece)
+                    //    currentCell = board[y, x].ToString();
 
-                    using (var brush = new SolidBrush(Color.Black))
-                        g.DrawString(currentCell, this.Font, brush, currentX, currentY);
+                    //using (var brush = new SolidBrush(Color.Black))
+                    //    g.DrawString(currentCell, this.Font, brush, currentX, currentY);
                 }
             }
         }

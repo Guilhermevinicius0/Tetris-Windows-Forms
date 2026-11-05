@@ -29,6 +29,8 @@ namespace WindowsFormsApp8.Game
         public event Action<int> HighScoreChangedEvent;
         public event Action GameOverEvent;
 
+        private bool gameOver = false;
+
         private bool ValidateBoard()
         {
             if (Board == null)
@@ -130,6 +132,13 @@ namespace WindowsFormsApp8.Game
             }
         }
 
+        public void Restart()
+        {
+            gameOver = false;
+            ClearGame();
+            InitializeBag();
+        }
+
         public void ApplyTestBoard()
         {
             for (int i = Board.GetLength(0) - 1; i >= Board.GetLength(0) - 9; i -= 2)
@@ -214,8 +223,11 @@ namespace WindowsFormsApp8.Game
             }
         }
 
-        public bool TryMovePieceLeft()
+        public bool TryMove(int x, int y) 
         {
+            if (gameOver)
+                return false;
+
             if (!ValidateBoard())
             {
                 Console.WriteLine("Invalid Board");
@@ -230,64 +242,24 @@ namespace WindowsFormsApp8.Game
 
             bool validMove = false;
 
-            if (ValidatePiecePosition(-1, 0, CurrentPiece.Body))
+            if (ValidatePiecePosition(x, y, CurrentPiece.Body))
             {
                 validMove = true;
-                CurrentPiece.X -= 1;
+                CurrentPiece.X += x;
+                CurrentPiece.Y += y;
             }
 
             return validMove;
         }
+
+        public bool TryMovePieceLeft()
+            => TryMove(-1, 0);
 
         public bool TryMovePieceRight()
-        {
-            if (!ValidateBoard())
-            {
-                Console.WriteLine("Invalid Board");
-                return false;
-            }
-
-            if (!ValidatePiece())
-            {
-                Console.WriteLine("Invalid piece");
-                return false;
-            }
-
-            bool validMove = false;
-
-            if (ValidatePiecePosition(1, 0, CurrentPiece.Body))
-            {
-                validMove = true;
-                CurrentPiece.X += 1;
-            }
-
-            return validMove;
-        }
+            => TryMove(1, 0);
 
         public bool TryMovePieceDown()
-        {
-            if (!ValidateBoard())
-            {
-                Console.WriteLine("Invalid Board");
-                return false;
-            }
-
-            if (!ValidatePiece())
-            {
-                Console.WriteLine("Invalid piece");
-                return false;
-            }
-
-            bool validMove = false;
-
-            if (ValidatePiecePosition(0, 1, CurrentPiece.Body))
-            {
-                validMove = true;
-                CurrentPiece.Y += 1;
-            }
-
-            return validMove;
-        }
+            => TryMove(0, 1);
 
         public bool TryRotatePiece()
         {
@@ -395,6 +367,7 @@ namespace WindowsFormsApp8.Game
 
             if (!ValidatePiecePosition(0, 0, CurrentPiece.Body))
             {
+                gameOver = true;
                 GameOverEvent?.Invoke();
                 return;
             }
@@ -450,5 +423,4 @@ namespace WindowsFormsApp8.Game
             }
         }
     }
-
 }
