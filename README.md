@@ -36,7 +36,7 @@ This is a personal learning project. Suggestions and feedback are welcome!
 <br>
 <img width="471" height="586" alt="image" src="https://github.com/user-attachments/assets/34aa65ed-f89b-4722-8a50-792d798a1ab8" />
 <br>
-<img width="640" height="748" alt="winformTetris" src="https://github.com/user-attachments/assets/6c2c958d-9e24-4149-af5c-880336875496" />
+<img width="640" height="748" alt="winformTetris (2)" src="https://github.com/user-attachments/assets/5b55d468-0c01-4d93-98fb-be15f02f0e4d" />
 <br>
 
 [Br]
@@ -75,5 +75,5 @@ Esse é um projeto pessoal de prática e aprendizado. Sugestões e feedbacks sã
 <br>
 <img width="471" height="586" alt="image" src="https://github.com/user-attachments/assets/34aa65ed-f89b-4722-8a50-792d798a1ab8" />
 <br>
-<img width="640" height="748" alt="winformTetris" src="https://github.com/user-attachments/assets/6c2c958d-9e24-4149-af5c-880336875496" />
+<img width="640" height="748" alt="winformTetris (2)" src="https://github.com/user-attachments/assets/5b55d468-0c01-4d93-98fb-be15f02f0e4d" />
 <br>
